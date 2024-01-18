@@ -13,6 +13,7 @@
     </header>
     {% for new in news %}
         <div>
+            <a href="{% url 'news-details-page' new.id %}">Detalhes</a>
             <h2 class="news-title">{{ new.title }}</h2>
             <span class="news-date">{{ new.created_at|date:"d/m/Y" }}</span>
             {% if new.image %}
