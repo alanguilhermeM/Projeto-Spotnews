@@ -6,7 +6,7 @@ def validate_min_words(value):
     words = value.split()
     if len(words) < 2:
         raise ValidationError(
-            _('O título deve ter mais de uma palavra.'),
+            ('O título deve ter mais de uma palavra.'),
             code='invalid_title',
         )
 
