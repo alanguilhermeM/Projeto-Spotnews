@@ -6,8 +6,19 @@ def validate_min_words(value):
     words = value.split()
     if len(words) < 2:
         raise ValidationError(
-            ('O título deve ter mais de uma palavra.'),
+            ('O título deve conter pelo menos 2 palavras.'),
             code='invalid_title',
+        )
+    if not value:
+        raise ValidationError(
+            {"title": ["Este campo não pode estar vazio."]}
+        )
+
+
+def valid_content(value):
+    if not value:
+        raise ValidationError(
+            {"content": ["Este campo não pode estar vazio."]}
         )
 
 
@@ -34,9 +45,9 @@ class News(models.Model):
         blank=False,
         validators=[validate_min_words]
     )
-    content = models.TextField(blank=False)
+    content = models.TextField(blank=False, validators=[valid_content])
     author = models.ForeignKey(User, on_delete=models.CASCADE)
-    created_at = models.DateField(auto_now_add=True, blank=False)
+    created_at = models.DateField(auto_now_add=False)
     image = models.ImageField(upload_to='images/', blank=True)
     categories = models.ManyToManyField(Category, blank=False)
 
