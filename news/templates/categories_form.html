@@ -14,7 +14,7 @@
     </header>
     <form method="post" action="{% url 'categories-form' %}">
         {% csrf_token %}
-        {{ forms }}
+        {{ forms.as_p }}
         <button type="submit">Salvar</button>
     </form>
     

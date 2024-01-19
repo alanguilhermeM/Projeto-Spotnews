@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from .models import News, Category
 from django.shortcuts import get_object_or_404
 from django.http import Http404
-from .forms import CategoriesForm, NewsForm
+from .forms import CategoriesForm, CreateNewsModelForm
 
 
 # Create your views here.
@@ -36,20 +36,22 @@ def categories_form(request):
 
 def news_form(request):
     if request.method == 'POST':
-        form = NewsForm(request.POST, request.FILES)
+        form = CreateNewsModelForm(request.POST, request.FILES)
 
         if form.is_valid():
-            new_instance = News(
-                title=form.cleaned_data['title'],
-                content=form.cleaned_data['content'],
-                author=form.cleaned_data['author'],
-                created_at=form.cleaned_data['created_at'],
-                image=request.FILES.get('image'),
-            )
-            new_instance.save()
-            new_instance.categories.set(form.cleaned_data['categories'])
+            # new_instance = News(
+            #     title=form.cleaned_data['title'],
+            #     content=form.cleaned_data['content'],
+            #     author=form.cleaned_data['author'],
+            #     created_at=form.cleaned_data['created_at'],
+            #     image=request.FILES.get('image'),
+            # )
+            # new_instance.save()
+            # new_instance.categories.set(form.cleaned_data['categories'])
+            form.save()
+            # News.objects.create(**form.cleaned_data)
             return redirect('home-page')
     else:
-        form = NewsForm()
+        form = CreateNewsModelForm()
     context = {'forms': form}
     return render(request, 'news_form.html', context)
