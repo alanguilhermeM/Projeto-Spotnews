@@ -39,17 +39,7 @@ def news_form(request):
         form = CreateNewsModelForm(request.POST, request.FILES)
 
         if form.is_valid():
-            # new_instance = News(
-            #     title=form.cleaned_data['title'],
-            #     content=form.cleaned_data['content'],
-            #     author=form.cleaned_data['author'],
-            #     created_at=form.cleaned_data['created_at'],
-            #     image=request.FILES.get('image'),
-            # )
-            # new_instance.save()
-            # new_instance.categories.set(form.cleaned_data['categories'])
             form.save()
-            # News.objects.create(**form.cleaned_data)
             return redirect('home-page')
     else:
         form = CreateNewsModelForm()
